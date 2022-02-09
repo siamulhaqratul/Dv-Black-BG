@@ -13,16 +13,16 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         .content {
             position: relative;
         }
-        
+
         .click1 {
             position: absolute;
             display: none;
         }
-        
+
         .circle1 {
             transform: translate(-50%, -50%);
             height: 7vh;
@@ -32,56 +32,62 @@
             transition: 2s;
             animation: fadeIn linear 1s infinite;
         }
-        
+
         .hand1 img {
             height: 10vh;
             width: auto;
             animation: moveHand1 linear 1s infinite;
         }
-        
+
         @keyframes fadeIn {
             0% {
                 opacity: 1;
             }
+
             10% {
                 opacity: 0;
             }
+
             50% {
                 opacity: 0;
             }
+
             90% {
                 opacity: 0;
             }
+
             100% {
                 opacity: 1;
             }
         }
-        
+
         @keyframes moveHand1 {
             0% {
                 transform: rotate(0deg) translateY(-9vh);
             }
+
             50% {
                 transform: rotate(-15deg) translateY(-5vh);
             }
+
             100% {
                 transform: rotate(0deg) translateY(-9vh);
             }
         }
-        
+
         #popup {
             position: absolute;
             top: -60%;
             display: grid;
             transition: all 2s ease-out;
         }
-        
+
         #popup img {
             border-radius: 20px;
             box-shadow: 0px 5px 5px red, 0px 5px 20px red, 0px 5px 50px red;
             margin-bottom: 30px;
         }
-        
+
         #popup button {
             font-size: 150%;
             background-color: #28A745;
@@ -91,19 +97,21 @@
             padding: 15px;
             animation: zoomAnimation 3s linear infinite;
         }
-        
+
         @keyframes zoomAnimation {
             0% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.5);
             }
+
             100% {
                 transform: scale(1);
             }
         }
-        
+
         .content.fade {
             filter: blur(5px) brightness(50%);
         }
@@ -133,50 +141,49 @@
 
     <script>
         var myVideo = document.getElementById("video1");
-        let flag = true;
-        setTimeout(() => {
-            myVideo.pause();
-            const clicked = document.querySelector('.click1');
-            clicked.style.top = "65%";
-            clicked.style.left = "56%";
-            clicked.style.display = 'block';
-            myVideo.addEventListener('click', function() {
-                clicked.style.display = 'none';
-                myVideo.play();
-                setTimeout(() => {
-                    myVideo.pause();
-                    clicked.style.top = "55%";
-                    clicked.style.left = "90%";
-                    clicked.style.display = 'block';
-                    myVideo.addEventListener('click', function() {
-                        clicked.style.display = 'none';
-                        myVideo.play();
-                        setTimeout(() => {
-                            myVideo.pause();
-                            clicked.style.top = "55%";
-                            clicked.style.left = "60%";
-                            clicked.style.display = 'block';
-                            myVideo.addEventListener('click', function() {
-                                clicked.style.display = 'none';
-                                myVideo.play();
-                                setTimeout(() => {
-                                    clicked.style.display = 'block';
-                                    var myPopup = document.getElementById("popup");
-                                    myPopup.setAttribute('style', 'display: grid; top: 50%; transform: translateY(-50%)')
-                                    document.querySelector('.content').classList.add('fade');
-                                    document.getElementById('button').addEventListener('click', function() {
-                                        if (flag) {
-                                            alert('CTA Button Clicked');
-                                            flag = false;
-                                        }
-                                    });
-                                }, 600);
-                            });
-                        }, 3200);
-                    });
-                }, 2900);
-            });
-        }, 2200);
+        const clicked = document.querySelector('.click1');
+        myVideo.addEventListener('timeupdate', function (e) {
+            if (myVideo.currentTime >= 1.96 && myVideo.currentTime <= 2) {
+                myVideo.pause();
+                clicked.style.top = "65%";
+                clicked.style.left = "56%";
+                clicked.style.display = 'block';
+                myVideo.addEventListener('click', function () {
+                    clicked.style.display = 'none';
+                    myVideo.play();
+                });
+            }
+            else if (myVideo.currentTime >= 4.7 && myVideo.currentTime <= 4.8) {
+                myVideo.pause();
+                clicked.style.top = "55%";
+                clicked.style.left = "90%";
+                clicked.style.display = 'block';
+                myVideo.addEventListener('click', function () {
+                    clicked.style.display = 'none';
+                    myVideo.play();
+                });
+            }
+            else if (myVideo.currentTime >= 7.9 && myVideo.currentTime <= 8.1) {
+                myVideo.pause();
+                clicked.style.top = "55%";
+                clicked.style.left = "60%";
+                clicked.style.display = 'block';
+                myVideo.addEventListener('click', function () {
+                    clicked.style.display = 'none';
+                    myVideo.play();
+                });
+            }
+            else if(myVideo.ended){
+                var myPopup = document.getElementById("popup");
+                myPopup.setAttribute('style', 'display: grid; top: 50%; transform: translateY(-50%)')
+                document.querySelector('.content').classList.add('fade');
+                document.getElementById('button').addEventListener('click', function() {
+                alert('CTA Button Clicked');
+                });
+            }
+
+        });
+
     </script>
 
 </body>
